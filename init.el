@@ -2,6 +2,7 @@
 ;; type
 (define-key global-map (kbd "C-z") 'undo)
 (define-key global-map (kbd "C-v") 'yank)
+(define-key global-map (kbd "C-y") ' yank)
 ;; cursor
 (define-key global-map (kbd "C-h") 'backward-char)
 (define-key global-map (kbd "C-l") 'forward-char)
@@ -20,7 +21,6 @@
 (define-key global-map (kbd "C-x C-m") 'magit-status)
 (define-key global-map (kbd "C-SPC") 'nil)
 (define-key global-map (kbd "C-q") ' query-replace)
-(define-key global-map (kbd "C-y") ' kill-line)
 (define-key global-map (kbd "RET") ' newline)
 
 
@@ -98,9 +98,6 @@
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
 
-
-;; haskell
-(add-hook 'haskell-mode-hook 'intero-mode)
 
 ;; YaTeX
 (setq auto-mode-alist
