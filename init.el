@@ -18,8 +18,8 @@
 
 ;; buffer && window
 ;; select buffer
-(define-key global-map (kbd "M-p") 'previous-buffer)
-(define-key global-map (kbd "M-n") 'next-buffer)
+(define-key global-map (kbd "M-k") 'previous-buffer)
+(define-key global-map (kbd "M-j") 'next-buffer)
 (define-key global-map (kbd "C-r") 'eval-buffer)
 ;; move window
 (define-key global-map (kbd "C-c h") 'windmove-left)
@@ -27,7 +27,7 @@
 (define-key global-map (kbd "C-c k") 'windmove-up)
 (define-key global-map (kbd "C-c l") 'windmove-right)
 ;; select window size
-(define-key global-map (kbd "C-c C-r") 'window-resizer)
+(define-key global-map (kbd "C-c w") 'window-resizer)
 
 
 ;; others
@@ -76,7 +76,7 @@
 (when window-system
   (set-face-attribute 'default nil
               :family "Migu 1M"
-              :height 120))
+              :height 105))
 
 ;; action
 ;; kill backup
@@ -189,3 +189,12 @@
               (t
                (message "Quit")
                (throw 'end-flag t)))))))
+
+
+
+;; Haskell
+(add-hook 'haskell-mode-hook 'intero-mode)
+
+;; JS
+(autoload 'js2-mode "js2-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
