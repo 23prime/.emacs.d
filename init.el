@@ -3,13 +3,16 @@
 (define-key global-map (kbd "C-z") 'undo)
 (define-key global-map (kbd "C-v") 'yank)
 (define-key global-map (kbd "C-y") 'yank)
+(define-key global-map (kbd "C-c r") 'replace-string)
+
 
 ;; cursor
-;; use Vim!
 (define-key global-map (kbd "C-h") 'backward-char)
 (define-key global-map (kbd "C-l") 'forward-char)
 (define-key global-map (kbd "C-j") 'next-line)
 (define-key global-map (kbd "C-k") 'previous-line)
+(define-key global-map (kbd "M-h") 'backward-word)
+(define-key global-map (kbd "M-l") 'forward-word)
 
 ;; scroll
 (define-key global-map (kbd "C-p") 'scroll-down-command)
@@ -76,7 +79,8 @@
 (when window-system
   (set-face-attribute 'default nil
               :family "Migu 1M"
-              :height 105))
+              :height 96
+              ))
 
 ;; action
 ;; kill backup
@@ -86,7 +90,7 @@
 (setq delete-auto-save-files t)
 
 ;; tab setting
-(setq-default tab-width 4 indent-tabs-mode nil)
+(setq-default tab-width 2 indent-tabs-mode nil)
 
 ;; only frame
 (setq ns-pop-up-frames nil)
