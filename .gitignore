@@ -1,3 +1,5 @@
 session*
 tramp
 auto-save-list
+elpa/
+eshell/

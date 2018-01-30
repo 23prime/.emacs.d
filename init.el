@@ -31,13 +31,19 @@
 (define-key global-map (kbd "C-c l") 'windmove-right)
 ;; select window size
 (define-key global-map (kbd "C-c w") 'window-resizer)
+;; quickrun
+(define-key global-map (kbd "C-c C-q") 'quickrun)
+;; shell
+(define-key global-map (kbd "C-c C-s") 'shell)
+;;(define-key global-map (kbd "C-c C-s") 'ansi-term)
 
 
 ;; others
 (define-key global-map (kbd "C-b") 'describe-bindings)
 (define-key global-map (kbd "C-SPC") 'nil) ;; kill to select input method
-(define-key global-map (kbd "C-q") ' query-replace)
-(define-key global-map (kbd "RET") ' newline)
+(define-key global-map (kbd "C-q") 'query-replace)
+(define-key global-map (kbd "RET") 'newline)
+(define-key global-map (kbd "C-o") 'newline)
 
 
 ;; Mozc
@@ -48,6 +54,7 @@
 (setq default-input-method "japanese-mozc")
 
 ;; character code
+(set-language-environment  'utf-8)
 (prefer-coding-system 'utf-8)
 
 ;; copy && paste
@@ -79,7 +86,7 @@
 (when window-system
   (set-face-attribute 'default nil
               :family "Migu 1M"
-              :height 96
+              :height 102
               ))
 
 ;; action
@@ -112,7 +119,7 @@
 ;; extended packages
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
-(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+;;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
 
 
@@ -202,3 +209,36 @@
 ;; JS
 (autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+
+;; Rust
+;; racerやrustfmt，コンパイラにパスを通す
+(add-to-list 'exec-path (expand-file-name "~/.cargo/bin/"))
+;; rust-modeでrust-format-on-saveをtにすると自動でrustfmtが走る
+(eval-after-load "rust-mode"
+  '(setq-default rust-format-on-save t))
+;; rustのファイルを編集するときにracerとflycheckを起動する
+(add-hook 'rust-mode-hook (lambda ()
+                            (racer-mode)
+                            (flycheck-rust-setup)))
+;; racerのeldocサポートを使う
+(add-hook 'racer-mode-hook #'eldoc-mode)
+;; racerの補完サポートを使う
+(add-hook 'racer-mode-hook (lambda ()
+                             (company-mode)
+                             ;; この辺の設定はお好みで
+                             (set (make-variable-buffer-local 'company-idle-delay) 0.1)
+                             (set (make-variable-buffer-local 'company-minimum-prefix-length) 0)))
+
+
+;; ansi-term
+;;(defun skt:shell ()
+;;  (or
+;;   (executable-find "zsh")
+;;   (executable-find "bash")
+;;   (executable-find "cmdproxy")
+;;   (error "can't find 'shell' command in PATH!!"))
+
+;; Shell 名の設定
+;;(setq shell-file-name (skt:shell))
+;;(setenv "SHELL" shell-file-name)
+;;(setq explicit-shell-file-name shell-file-name)
