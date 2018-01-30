@@ -1,3 +1,0 @@
-cd ~/
-cd ~/computational-algebra/
-stack exec ghci
