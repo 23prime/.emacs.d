@@ -1,10 +1,14 @@
 ;; key binding
 ;; type
-(define-key global-map (kbd "C-z") 'undo)
-(define-key global-map (kbd "C-v") 'yank)
-(define-key global-map (kbd "C-y") 'yank)
-(define-key global-map (kbd "C-c r") 'replace-string)
-
+(define-key global-map (kbd "C-z")     'undo)
+(define-key global-map (kbd "C-v")     'yank)
+(define-key global-map (kbd "C-y")     'kill-line)
+(define-key global-map (kbd "C-b")     'delete-backward-char)
+(define-key global-map (kbd "C-SPC")   'nil) ;; kill to select input method
+(define-key global-map (kbd "C-q")     'query-replace)
+(define-key global-map (kbd "C-r") 'replace-string)
+(define-key global-map (kbd "RET")     'newline)
+(define-key global-map (kbd "C-o")     'newline)
 
 ;; cursor
 (define-key global-map (kbd "C-h") 'backward-char)
@@ -19,11 +23,11 @@
 (define-key global-map (kbd "C-n") 'scroll-up-command)
 (define-key global-map (kbd "C-f") 'recenter-top-bottom)
 
-;; buffer && window
-;; select buffer
+;; buffer
 (define-key global-map (kbd "M-k") 'previous-buffer)
 (define-key global-map (kbd "M-j") 'next-buffer)
-(define-key global-map (kbd "C-r") 'eval-buffer)
+(define-key global-map (kbd "C-c C-r") 'eval-buffer)
+
 ;; move window
 (define-key global-map (kbd "C-c h") 'windmove-left)
 (define-key global-map (kbd "C-c j") 'windmove-down)
@@ -31,20 +35,13 @@
 (define-key global-map (kbd "C-c l") 'windmove-right)
 ;; select window size
 (define-key global-map (kbd "C-c w") 'window-resizer)
+
+;; system
 ;; quickrun
 (define-key global-map (kbd "C-c C-q") 'quickrun)
 ;; shell
 (define-key global-map (kbd "C-c C-s") 'shell)
 ;;(define-key global-map (kbd "C-c C-s") 'ansi-term)
-
-
-;; others
-(define-key global-map (kbd "C-b") 'describe-bindings)
-(define-key global-map (kbd "C-SPC") 'nil) ;; kill to select input method
-(define-key global-map (kbd "C-q") 'query-replace)
-(define-key global-map (kbd "RET") 'newline)
-(define-key global-map (kbd "C-o") 'newline)
-
 
 ;; Mozc
 (global-set-key (kbd "C-|") 'mozc-mode)
@@ -204,6 +201,7 @@
 
 
 ;; Haskell
+(package-install 'intero)
 (add-hook 'haskell-mode-hook 'intero-mode)
 
 ;; JS
@@ -228,17 +226,3 @@
                              ;; この辺の設定はお好みで
                              (set (make-variable-buffer-local 'company-idle-delay) 0.1)
                              (set (make-variable-buffer-local 'company-minimum-prefix-length) 0)))
-
-
-;; ansi-term
-;;(defun skt:shell ()
-;;  (or
-;;   (executable-find "zsh")
-;;   (executable-find "bash")
-;;   (executable-find "cmdproxy")
-;;   (error "can't find 'shell' command in PATH!!"))
-
-;; Shell 名の設定
-;;(setq shell-file-name (skt:shell))
-;;(setenv "SHELL" shell-file-name)
-;;(setq explicit-shell-file-name shell-file-name)
