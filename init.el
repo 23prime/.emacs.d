@@ -1,18 +1,27 @@
-;; key binding
-;; type
+;;;;;;;;;;;;;;;;;
+;; key binding ;;
+;;;;;;;;;;;;;;;;;
+
+;; typing
 (define-key global-map (kbd "C-z")     'undo)
+(define-key global-map (kbd "C-;")     'undo)
 (define-key global-map (kbd "C-v")     'yank)
 (define-key global-map (kbd "C-y")     'kill-line)
 (define-key global-map (kbd "C-b")     'delete-backward-char)
 (define-key global-map (kbd "C-SPC")   'nil) ;; kill to select input method
 (define-key global-map (kbd "C-q")     'query-replace)
-(define-key global-map (kbd "C-r") 'replace-string)
+(define-key global-map (kbd "C-r")     'replace-string)
 (define-key global-map (kbd "RET")     'newline)
 (define-key global-map (kbd "C-o")     'newline)
+(define-key global-map (kbd "C-u")     'kill-whole-line)
+
+(define-key global-map (kbd "C-c C-m") 'set-mark-command)
+(define-key global-map (kbd "C-c C-j") 'set-mark-command)
 
 ;; cursor
 (define-key global-map (kbd "C-h") 'backward-char)
 (define-key global-map (kbd "C-l") 'forward-char)
+
 (define-key global-map (kbd "C-j") 'next-line)
 (define-key global-map (kbd "C-k") 'previous-line)
 (define-key global-map (kbd "M-h") 'backward-word)
@@ -43,12 +52,12 @@
 (define-key global-map (kbd "C-c C-s") 'shell)
 ;;(define-key global-map (kbd "C-c C-s") 'ansi-term)
 
-;; Mozc
-(global-set-key (kbd "C-|") 'mozc-mode)
 
-(require 'mozc)
-(set-language-environment "Japanese")
-(setq default-input-method "japanese-mozc")
+;; Mozc
+;;(global-set-key (kbd "C-|") 'mozc-mode)
+;;(require 'mozc)
+;;(set-language-environment "Japanese")
+;;(setq default-input-method "japanese-mozc")
 
 ;; character code
 (set-language-environment  'utf-8)
@@ -58,7 +67,10 @@
 (setq x-select-enable-clipboard t)
 
 
-;; design
+;;;;;;;;;;;;
+;; design ;;
+;;;;;;;;;;;;
+
 ;; kill menu bar
 (menu-bar-mode -1)
 ;; kill menu bar
@@ -86,7 +98,18 @@
               :height 102
               ))
 
-;; action
+;;;;;;;;;;;;;
+;; actions ;;
+;;;;;;;;;;;;;
+
+;; when start Emacs
+;; split into 4 windows
+(split-window-horizontally)
+(split-window-vertically)
+(other-window 2)
+(split-window-vertically)
+(other-window 1)
+
 ;; kill backup
 (setq make-backup-files nil)
 
@@ -111,16 +134,26 @@
 ;; return-tab kill
 (setq electric-indent-mode nil)
 
-
-
 ;; extended packages
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
 ;;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
 
+;;;;;;;;;;;
+;; shell ;;
+;;;;;;;;;;;
+(setq exec-path (parse-colon-path (getenv "PATH")))
 
-;; YaTeX
+;;;;;;;;
+;;TeX ;;
+;;;;;;;;
+(defun texrm ()
+  (interactive)
+  (shell-command-to-string "texrm -y"))
+(define-key global-map (kbd "C-c d") 'texrm)
+
+;; YaTeX + RefTeX
 (setq auto-mode-alist
       (cons (cons "\\.tex$" 'yatex-mode) auto-mode-alist))
 (setq auto-mode-alist
@@ -128,7 +161,8 @@
 (autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
 (setq YaTeX-open-lines 0)
 (setq YaTeX-kanji-code nil)
-(setq tex-command "platex")
+;;(setq tex-command "platex")
+(setq tex-command "latexmk -pvc")
 (setq dviprint-from-format "-p %b")
 (setq dviprint-to-format "-l %e")
 (setq dviprint-command-format "dvips %f %t %s | lpr")
@@ -136,6 +170,68 @@
 (add-hook 'latex-mode-hook 'turn-on-reftex)
 (add-hook 'yatex-mode-hook 'turn-on-reftex)
 
+;; SyncTeX
+(defun evince-forward-search ()
+  (interactive)
+  (let* ((ctf (buffer-name))
+         (mtf)
+         (pf)
+         (ln (format "%d" (line-number-at-pos)))
+         (cmd "fwdevince")
+         (args))
+    (if (YaTeX-main-file-p)
+        (setq mtf (buffer-name))
+      (progn
+        (if (equal YaTeX-parent-file nil)
+            (save-excursion
+              (YaTeX-visit-main t)))
+        (setq mtf YaTeX-parent-file)))
+    (setq pf (concat (car (split-string mtf "\\.")) ".pdf"))
+    (setq args (concat pf " " ln " " ctf))
+    (message (concat cmd " " args))
+    (process-kill-without-query
+     (start-process-shell-command "fwdevince" nil cmd args))))
+
+(add-hook 'yatex-mode-hook
+          '(lambda ()
+             (define-key YaTeX-mode-map (kbd "C-c e") 'evince-forward-search)))
+
+(require 'dbus)
+
+(defun un-urlify (fname-or-url)
+  "A trivial function that replaces a prefix of file:/// with just /."
+  (if (string= (substring fname-or-url 0 8) "file:///")
+      (substring fname-or-url 7)
+    fname-or-url))
+
+(defun th-evince-sync (file linecol &rest ignored)
+  (let* ((fname (un-urlify file))
+ ;        (buf (find-buffer-visiting fname))
+         (buf (find-file fname))
+         (line (car linecol))
+         (col (cadr linecol)))
+    (if (null buf)
+        (message "[Synctex]: %s is not opened..." fname)
+      (switch-to-buffer buf)
+      (goto-line (car linecol))
+      (unless (= col -1)
+        (move-to-column col)))))
+
+(defvar *dbus-evince-signal* nil)
+
+(defun enable-evince-sync ()
+  (require 'dbus)
+  (when (and
+         (eq window-system 'x)
+         (fboundp 'dbus-register-signal))
+    (unless *dbus-evince-signal*
+      (setf *dbus-evince-signal*
+            (dbus-register-signal
+             :session nil "/org/gnome/evince/Window/0"
+             "org.gnome.evince.Window" "SyncSource"
+             'th-evince-sync)))))
+
+(add-hook 'yatex-mode-hook 'enable-evince-sync)
 
 ;; web-mode setting
 (require 'web-mode)
