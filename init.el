@@ -1,3 +1,87 @@
+;;;;;;;;;;;;
+;; design ;;
+;;;;;;;;;;;;
+
+;; kill menu bar
+(menu-bar-mode -1)
+;; kill menu bar
+(tool-bar-mode -1)
+
+;; column && line num
+(column-number-mode t)
+(global-linum-mode t)
+
+;; highlight in cursor line
+(global-hl-line-mode t)
+
+;; theme setting
+(custom-set-variables '(custom-enabled-themes (quote (tsdh-dark))))
+(custom-set-faces )
+
+;; kill start 
+(setq inhibit-startup-message t)
+(setq initial-scratch-message nil)
+
+;; font
+(when window-system
+  (set-face-attribute 'default nil
+              :family "Migu 1M"
+              :height 102
+              ))
+
+;;;;;;;;;;;;;
+;; actions ;;
+;;;;;;;;;;;;;
+
+;; when start Emacs
+;; split into 4 windows
+(split-window-horizontally)
+(split-window-vertically)
+(other-window 2)
+(split-window-vertically)
+(other-window 1)
+
+;; kill backup
+(setq make-backup-files nil)
+
+;; kill auto seve
+(setq delete-auto-save-files t)
+
+;; tab setting
+(setq-default tab-width 2 indent-tabs-mode nil)
+
+;; only frame
+(setq ns-pop-up-frames nil)
+
+;; scroll line
+(setq scroll-conservatively 1)
+
+;; parenthesis
+(show-paren-mode 1)
+
+;; clear && active
+(add-to-list 'default-frame-alist '(alpha . (1.0 1.0)))
+
+;; return-tab kill
+(setq electric-indent-mode nil)
+
+;;;;;;;;;
+;; env ;;
+;;;;;;;;;
+;;(setq exec-path (parse-colon-path (getenv "PATH")))
+
+(setq load-path (cons "~/.emacs.d/elisp" load-path))
+
+(let ((default-directory (expand-file-name "~/.emacs.d/site-lisp")))
+  (add-to-list 'load-path default-directory)
+  (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
+      (normal-top-level-add-subdirs-to-load-path)))
+
+(require 'init-loader)
+(setq init-loader-show-log-after-init nil)
+(init-loader-load "~/.emacs.d/inits")
+
+
 ;;;;;;;;;;;;;;;;;
 ;; key binding ;;
 ;;;;;;;;;;;;;;;;;
@@ -66,84 +150,6 @@
 ;; copy && paste
 (setq x-select-enable-clipboard t)
 
-
-;;;;;;;;;;;;
-;; design ;;
-;;;;;;;;;;;;
-
-;; kill menu bar
-(menu-bar-mode -1)
-;; kill menu bar
-(tool-bar-mode -1)
-
-;; column && line num
-(column-number-mode t)
-(global-linum-mode t)
-
-;; highlight in cursor line
-(global-hl-line-mode t)
-
-;; theme setting
-(custom-set-variables '(custom-enabled-themes (quote (tsdh-dark))))
-(custom-set-faces )
-
-;; kill start 
-(setq inhibit-startup-message t)
-(setq initial-scratch-message nil)
-
-;; font
-(when window-system
-  (set-face-attribute 'default nil
-              :family "Migu 1M"
-              :height 102
-              ))
-
-;;;;;;;;;;;;;
-;; actions ;;
-;;;;;;;;;;;;;
-
-;; when start Emacs
-;; split into 4 windows
-(split-window-horizontally)
-(split-window-vertically)
-(other-window 2)
-(split-window-vertically)
-(other-window 1)
-
-;; kill backup
-(setq make-backup-files nil)
-
-;; kill auto seve
-(setq delete-auto-save-files t)
-
-;; tab setting
-(setq-default tab-width 2 indent-tabs-mode nil)
-
-;; only frame
-(setq ns-pop-up-frames nil)
-
-;; scroll line
-(setq scroll-conservatively 1)
-
-;; parenthesis
-(show-paren-mode 1)
-
-;; clear && active
-(add-to-list 'default-frame-alist '(alpha . (1.0 1.0)))
-
-;; return-tab kill
-(setq electric-indent-mode nil)
-
-;; extended packages
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
-;;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-(package-initialize)
-
-;;;;;;;;;;;
-;; shell ;;
-;;;;;;;;;;;
-(setq exec-path (parse-colon-path (getenv "PATH")))
 
 ;;;;;;;;
 ;;TeX ;;
@@ -294,17 +300,31 @@
                (message "Quit")
                (throw 'end-flag t)))))))
 
-
-
-;; Haskell
+;;;;;;;;;;;;;
+;; Haskell ;;
+;;;;;;;;;;;;;
 (package-install 'intero)
 (add-hook 'haskell-mode-hook 'intero-mode)
+(custom-set-variables '(haskell-stylish-on-save t))
 
-;; JS
+(require 'intero)
+(require 'flycheck)
+(flycheck-add-next-checker 'intero '(warning . haskell-hlint))
+
+(require 'hs-lint)
+(defun my-haskell-mode-hook ()
+   (local-set-key "\C-cl" 'hs-lint))
+(add-hook 'haskell-mode-hook 'my-haskell-mode-hook)
+
+;;;;;;;;
+;; JS ;;
+;;;;;;;;
 (autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
-;; Rust
+;;;;;;;;;;
+;; Rust ;;
+;;;;;;;;;;
 ;; racerやrustfmt，コンパイラにパスを通す
 (add-to-list 'exec-path (expand-file-name "~/.cargo/bin/"))
 ;; rust-modeでrust-format-on-saveをtにすると自動でrustfmtが走る
