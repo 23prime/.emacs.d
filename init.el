@@ -1,6 +1,6 @@
-;;;;;;;;;;;;
-;; design ;;
-;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; design ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; kill menu bar
 (menu-bar-mode -1)
@@ -29,9 +29,10 @@
               :height 102
               ))
 
-;;;;;;;;;;;;;
-;; actions ;;
-;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; action ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; when start Emacs
 ;; split into 4 windows
@@ -65,9 +66,41 @@
 ;; return-tab kill
 (setq electric-indent-mode nil)
 
-;;;;;;;;;
-;; env ;;
-;;;;;;;;;
+;; resize window
+(defun window-resizer ()
+  "Control window size and position."
+  (interactive)
+  (let ((window-obj (selected-window))
+        (current-width (window-width))
+        (current-height (window-height))
+        (dx (if (= (nth 0 (window-edges)) 0) 1
+              -1))
+        (dy (if (= (nth 1 (window-edges)) 0) 1
+              -1))
+        c)
+    (catch 'end-flag
+      (while t
+        (message "size[%dx%d]"
+                 (window-width) (window-height))
+        (setq c (read-char))
+        (cond ((= c ?l)
+               (enlarge-window-horizontally dx))
+              ((= c ?h)
+               (shrink-window-horizontally dx))
+              ((= c ?j)
+               (enlarge-window dy))
+              ((= c ?k)
+               (shrink-window dy))
+              ;; otherwise
+              (t
+               (message "Quit")
+               (throw 'end-flag t)))))))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; env ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;;(setq exec-path (parse-colon-path (getenv "PATH")))
 
 (setq load-path (cons "~/.emacs.d/elisp" load-path))
@@ -82,9 +115,26 @@
 (init-loader-load "~/.emacs.d/inits")
 
 
-;;;;;;;;;;;;;;;;;
-;; key binding ;;
-;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; input ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;(global-set-key (kbd "C-|") 'mozc-mode)
+;;(require 'mozc)
+;;(set-language-environment "Japanese")
+;;(setq default-input-method "japanese-mozc")
+
+;; character code
+(set-language-environment  'utf-8)
+(prefer-coding-system 'utf-8)
+
+;; copy && paste
+(setq x-select-enable-clipboard t)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; global key binding ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; typing
 (define-key global-map (kbd "C-z")     'undo)
@@ -137,23 +187,10 @@
 ;;(define-key global-map (kbd "C-c C-s") 'ansi-term)
 
 
-;; Mozc
-;;(global-set-key (kbd "C-|") 'mozc-mode)
-;;(require 'mozc)
-;;(set-language-environment "Japanese")
-;;(setq default-input-method "japanese-mozc")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; TeX ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; character code
-(set-language-environment  'utf-8)
-(prefer-coding-system 'utf-8)
-
-;; copy && paste
-(setq x-select-enable-clipboard t)
-
-
-;;;;;;;;
-;;TeX ;;
-;;;;;;;;
 (defun texrm ()
   (interactive)
   (shell-command-to-string "texrm -y"))
@@ -239,7 +276,11 @@
 
 (add-hook 'yatex-mode-hook 'enable-evince-sync)
 
-;; web-mode setting
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Web ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (require 'web-mode)
 ;; extensions
 (add-to-list 'auto-mode-alist '("\\.phtml$"     . web-mode))
@@ -269,40 +310,11 @@
   
 (add-hook 'web-mode-hook 'web-mode-hook)
 
-;; 
+ 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Haskell ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun window-resizer ()
-  "Control window size and position."
-  (interactive)
-  (let ((window-obj (selected-window))
-        (current-width (window-width))
-        (current-height (window-height))
-        (dx (if (= (nth 0 (window-edges)) 0) 1
-              -1))
-        (dy (if (= (nth 1 (window-edges)) 0) 1
-              -1))
-        c)
-    (catch 'end-flag
-      (while t
-        (message "size[%dx%d]"
-                 (window-width) (window-height))
-        (setq c (read-char))
-        (cond ((= c ?l)
-               (enlarge-window-horizontally dx))
-              ((= c ?h)
-               (shrink-window-horizontally dx))
-              ((= c ?j)
-               (enlarge-window dy))
-              ((= c ?k)
-               (shrink-window dy))
-              ;; otherwise
-              (t
-               (message "Quit")
-               (throw 'end-flag t)))))))
-
-;;;;;;;;;;;;;
-;; Haskell ;;
-;;;;;;;;;;;;;
 (package-install 'intero)
 (add-hook 'haskell-mode-hook 'intero-mode)
 (custom-set-variables '(haskell-stylish-on-save t))
@@ -316,29 +328,26 @@
    (local-set-key "\C-cl" 'hs-lint))
 (add-hook 'haskell-mode-hook 'my-haskell-mode-hook)
 
-;;;;;;;;
-;; JS ;;
-;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; JS ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
-;;;;;;;;;;
-;; Rust ;;
-;;;;;;;;;;
-;; racerやrustfmt，コンパイラにパスを通す
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Rust ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (add-to-list 'exec-path (expand-file-name "~/.cargo/bin/"))
-;; rust-modeでrust-format-on-saveをtにすると自動でrustfmtが走る
 (eval-after-load "rust-mode"
   '(setq-default rust-format-on-save t))
-;; rustのファイルを編集するときにracerとflycheckを起動する
 (add-hook 'rust-mode-hook (lambda ()
                             (racer-mode)
                             (flycheck-rust-setup)))
-;; racerのeldocサポートを使う
 (add-hook 'racer-mode-hook #'eldoc-mode)
-;; racerの補完サポートを使う
 (add-hook 'racer-mode-hook (lambda ()
                              (company-mode)
-                             ;; この辺の設定はお好みで
                              (set (make-variable-buffer-local 'company-idle-delay) 0.1)
                              (set (make-variable-buffer-local 'company-minimum-prefix-length) 0)))
