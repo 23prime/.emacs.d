@@ -1,6 +1,6 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; design ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;
+;; design ;;
+;;;;;;;;;;;;
 
 ;; kill menu bar
 (menu-bar-mode -1)
@@ -30,17 +30,9 @@
               ))
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; action ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; when start Emacs
-;; split into 4 windows
-(split-window-horizontally)
-(split-window-vertically)
-(other-window 2)
-(split-window-vertically)
-(other-window 1)
+;;;;;;;;;;;;
+;; action ;;
+;;;;;;;;;;;;
 
 ;; kill backup
 (setq make-backup-files nil)
@@ -65,6 +57,17 @@
 
 ;; return-tab kill
 (setq electric-indent-mode nil)
+
+;; split into 4 windows
+(defun window-spliter ()
+  (interactive)
+  (message "split!")
+  (split-window-horizontally)
+  (split-window-vertically)
+  (other-window 2)
+  (split-window-vertically)
+  (other-window 1))
+(global-set-key (kbd "C-c C-w") 'window-spliter)
 
 ;; resize window
 (defun window-resizer ()
@@ -97,10 +100,9 @@
                (throw 'end-flag t)))))))
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; env ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+;;;;;;;;;
+;; env ;;
+;;;;;;;;;
 ;;(setq exec-path (parse-colon-path (getenv "PATH")))
 
 (setq load-path (cons "~/.emacs.d/elisp" load-path))
@@ -115,9 +117,9 @@
 (init-loader-load "~/.emacs.d/inits")
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; input ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;
+;; input ;;
+;;;;;;;;;;;
 
 ;;(global-set-key (kbd "C-|") 'mozc-mode)
 ;;(require 'mozc)
@@ -132,69 +134,73 @@
 (setq x-select-enable-clipboard t)
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; global key binding ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; global key binding ;;
+;;;;;;;;;;;;;;;;;;;;;;;;
 ;; typing
-(define-key global-map (kbd "C-z")     'undo)
-(define-key global-map (kbd "C-;")     'undo)
-(define-key global-map (kbd "C-v")     'yank)
-(define-key global-map (kbd "C-y")     'kill-line)
-(define-key global-map (kbd "C-b")     'delete-backward-char)
-(define-key global-map (kbd "C-SPC")   'nil) ;; kill to select input method
-(define-key global-map (kbd "C-q")     'query-replace)
-(define-key global-map (kbd "C-r")     'replace-string)
-(define-key global-map (kbd "RET")     'newline)
-(define-key global-map (kbd "C-o")     'newline)
-(define-key global-map (kbd "C-u")     'kill-whole-line)
+(global-set-key (kbd "C-z")     'undo)
+(global-set-key (kbd "C-;")     'undo)
+(global-set-key (kbd "C-v")     'yank)
+(global-set-key (kbd "C-y")     'kill-line)
+(global-set-key (kbd "C-b")     'delete-backward-char)
+(global-set-key (kbd "C-SPC")   'nil) ;; kill to select input method
+(global-set-key (kbd "C-q")     'query-replace)
+(global-set-key (kbd "C-r")     'replace-string)
+(global-set-key (kbd "RET")     'newline)
+(global-set-key (kbd "C-o")     'newline)
+(global-set-key (kbd "C-u")     'kill-whole-line)
 
-(define-key global-map (kbd "C-c C-m") 'set-mark-command)
-(define-key global-map (kbd "C-c C-j") 'set-mark-command)
+(global-set-key (kbd "C-c C-m") 'set-mark-command)
+(global-set-key (kbd "C-c C-j") 'set-mark-command)
 
 ;; cursor
-(define-key global-map (kbd "C-h") 'backward-char)
-(define-key global-map (kbd "C-l") 'forward-char)
+(global-set-key (kbd "C-h") 'backward-char)
+(global-set-key (kbd "C-l") 'forward-char)
 
-(define-key global-map (kbd "C-j") 'next-line)
-(define-key global-map (kbd "C-k") 'previous-line)
-(define-key global-map (kbd "M-h") 'backward-word)
-(define-key global-map (kbd "M-l") 'forward-word)
+(global-set-key (kbd "C-j") 'next-line)
+(global-set-key (kbd "C-k") 'previous-line)
+(global-set-key (kbd "M-h") 'backward-word)
+(global-set-key (kbd "M-l") 'forward-word)
 
 ;; scroll
-(define-key global-map (kbd "C-p") 'scroll-down-command)
-(define-key global-map (kbd "C-n") 'scroll-up-command)
-(define-key global-map (kbd "C-f") 'recenter-top-bottom)
+(global-set-key (kbd "C-p") 'scroll-down-command)
+(global-set-key (kbd "C-n") 'scroll-up-command)
+(global-set-key (kbd "C-f") 'recenter-top-bottom)
 
 ;; buffer
-(define-key global-map (kbd "M-k") 'previous-buffer)
-(define-key global-map (kbd "M-j") 'next-buffer)
-(define-key global-map (kbd "C-c C-r") 'eval-buffer)
+(global-set-key (kbd "M-k")     'previous-buffer)
+(global-set-key (kbd "M-j")     'next-buffer)
+(global-set-key (kbd "C-c C-r") 'eval-buffer)
 
 ;; move window
-(define-key global-map (kbd "C-c h") 'windmove-left)
-(define-key global-map (kbd "C-c j") 'windmove-down)
-(define-key global-map (kbd "C-c k") 'windmove-up)
-(define-key global-map (kbd "C-c l") 'windmove-right)
+(global-set-key (kbd "C-c h") 'windmove-left)
+(global-set-key (kbd "C-c j") 'windmove-down)
+(global-set-key (kbd "C-c k") 'windmove-up)
+(global-set-key (kbd "C-c l") 'windmove-right)
 ;; select window size
-(define-key global-map (kbd "C-c w") 'window-resizer)
+(global-set-key (kbd "C-c w") 'window-resizer)
 
 ;; system
 ;; quickrun
-(define-key global-map (kbd "C-c C-q") 'quickrun)
+(global-set-key (kbd "C-c C-q") 'quickrun)
+(global-set-key (kbd "C-c q") 'quickrun)
 ;; shell
-(define-key global-map (kbd "C-c C-s") 'shell)
-;;(define-key global-map (kbd "C-c C-s") 'ansi-term)
+(global-set-key (kbd "C-c C-s") 'shell)
+;;(global-set-key (kbd "C-c C-s") 'ansi-term)
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; TeX ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+;;;;;;;;;
+;; TeX ;;
+;;;;;;;;;
+;; TeXrm
 (defun texrm ()
   (interactive)
+  (message "TeXrm -- Done!")
   (shell-command-to-string "texrm -y"))
-(define-key global-map (kbd "C-c d") 'texrm)
+;;(async-shell-command "texrm -y"))
+(add-hook 'yatex-mode-hook
+          '(lambda ()
+             (define-key YaTeX-mode-map (kbd "C-c d") 'texrm)))
 
 ;; YaTeX + RefTeX
 (setq auto-mode-alist
@@ -277,9 +283,9 @@
 (add-hook 'yatex-mode-hook 'enable-evince-sync)
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Web ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;
+;; Web ;;
+;;;;;;;;;
 
 (require 'web-mode)
 ;; extensions
@@ -311,10 +317,9 @@
 (add-hook 'web-mode-hook 'web-mode-hook)
 
  
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Haskell ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+;;;;;;;;;;;;;
+;; Haskell ;;
+;;;;;;;;;;;;;
 (package-install 'intero)
 (add-hook 'haskell-mode-hook 'intero-mode)
 (custom-set-variables '(haskell-stylish-on-save t))
@@ -323,23 +328,22 @@
 (require 'flycheck)
 (flycheck-add-next-checker 'intero '(warning . haskell-hlint))
 
-(require 'hs-lint)
-(defun my-haskell-mode-hook ()
-   (local-set-key "\C-cl" 'hs-lint))
-(add-hook 'haskell-mode-hook 'my-haskell-mode-hook)
+;;(require 'hs-lint)
+;;(defun my-haskell-mode-hook ()
+;;   (local-set-key "\C-cl" 'hs-lint))
+;;(add-hook 'haskell-mode-hook 'my-haskell-mode-hook)
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; JS ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;
+;; JS ;;
+;;;;;;;;
 (autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Rust ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+;;;;;;;;;;
+;; Rust ;;
+;;;;;;;;;;
 (add-to-list 'exec-path (expand-file-name "~/.cargo/bin/"))
 (eval-after-load "rust-mode"
   '(setq-default rust-format-on-save t))
@@ -351,3 +355,62 @@
                              (company-mode)
                              (set (make-variable-buffer-local 'company-idle-delay) 0.1)
                              (set (make-variable-buffer-local 'company-minimum-prefix-length) 0)))
+
+;;;;;;;
+;; C ;;
+;;;;;;;
+(require 'cc-mode)
+
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (setq c-default-style "k&r") ;; カーニハン・リッチースタイル
+            (setq indent-tabs-mode nil)  ;; タブは利用しない
+            (setq c-basic-offset 2)      ;; indent は 2 スペース
+            ))
+
+(add-hook 'c-mode-common-hook 'flycheck-mode)
+
+(defmacro flycheck-define-clike-checker (name command modes)
+  `(flycheck-define-checker ,(intern (format "%s" name))
+     ,(format "A %s checker using %s" name (car command))
+     :command (,@command source-inplace)
+     :error-patterns
+     ((warning line-start (file-name) ":" line ":" column ": 警告:" (message) line-end)
+      (error line-start (file-name) ":" line ":" column ": エラー:" (message) line-end))
+     :modes ',modes))
+(flycheck-define-clike-checker c-gcc-ja
+			       ("gcc" "-fsyntax-only" "-Wall" "-Wextra")
+			       c-mode)
+(add-to-list 'flycheck-checkers 'c-gcc-ja)
+(flycheck-define-clike-checker c++-g++-ja
+			       ("g++" "-fsyntax-only" "-Wall" "-Wextra" "-std=c++11")
+			       c++-mode)
+(add-to-list 'flycheck-checkers 'c++-g++-ja)
+
+;;;;;;;;;;
+;; Ruby ;;
+;;;;;;;;;;
+(autoload 'ruby-mode "ruby-mode"
+   "Mode for editing ruby source files" t)
+  (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
+  (add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
+  (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
+  (add-to-list 'auto-mode-alist '("[Rr]akefile$" . ruby-mode))
+
+(require 'ruby-electric)
+(add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
+(setq ruby-electric-expand-delimiters-list nil)
+
+(require 'auto-highlight-symbol)
+(global-auto-highlight-symbol-mode t)
+
+(autoload 'inf-ruby "inf-ruby" "Run an inferior Ruby process" t)
+(add-hook 'ruby-mode-hook 'inf-ruby-minor-mode)
+
+;; repl
+(add-to-list 'inf-ruby-implementations '("pry" . "pry"))
+(setq inf-ruby-default-implementation "pry")
+(setq inf-ruby-first-prompt-pattern "^\\[[0-9]+\\] pry\\((.*)\\)> *")
+(setq inf-ruby-prompt-pattern "^\\[[0-9]+\\] pry\\((.*)\\)[>*\"'] *")
+
+(add-hook 'ruby-mode-hook '(lambda () (define-key ruby-mode-map (kbd "C-c C-r") 'ruby-send-region)))
