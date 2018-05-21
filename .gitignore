@@ -1,6 +1,7 @@
 session*
 tramp
-auto-save-list
+auto-save-list/
 elpa/
 eshell/
 vendor/
+elisp/PG
