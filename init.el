@@ -1,7 +1,6 @@
 ;;;;;;;;;;;;
 ;; design ;;
 ;;;;;;;;;;;;
-
 ;; kill menu bar
 (menu-bar-mode -1)
 ;; kill menu bar
@@ -23,7 +22,7 @@
  '(custom-enabled-themes '(tsdh-dark))
  '(haskell-stylish-on-save t)
  '(package-selected-packages
-   '(web-mode ruby-electric racer quickrun python-mode py-autopep8 nodejs-repl js2-mode jedi intero inf-ruby hlint-refactor flymake-python-pyflakes flymake-jslint flycheck-rust exec-path-from-shell cargo auto-highlight-symbol)))
+   '(yatex web-mode ruby-electric racer quickrun python-mode py-autopep8 nodejs-repl js2-mode jedi intero inf-ruby hlint-refactor flymake-python-pyflakes flymake-jslint flycheck-rust exec-path-from-shell cargo auto-highlight-symbol)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -61,7 +60,6 @@
 ;;;;;;;;;;;;
 ;; action ;;
 ;;;;;;;;;;;;
-
 ;; kill backup
 (setq make-backup-files nil)
 
@@ -128,9 +126,6 @@
                (throw 'end-flag t)))))))
 
 
-
-
-
 ;;;;;;;;;;;
 ;; input ;;
 ;;;;;;;;;;;
@@ -145,5 +140,3 @@
 
 ;; copy && paste
 (setq x-select-enable-clipboard t)
-
-

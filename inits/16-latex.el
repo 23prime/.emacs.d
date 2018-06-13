@@ -6,7 +6,6 @@
   (interactive)
   (message "TeXrm -- Done!")
   (shell-command-to-string "texrm -y"))
-;;(async-shell-command "texrm -y"))
 (add-hook 'yatex-mode-hook
           '(lambda ()
              (define-key YaTeX-mode-map (kbd "C-c d") 'texrm)))
