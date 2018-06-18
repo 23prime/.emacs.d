@@ -51,3 +51,6 @@
 ;; shell
 (global-set-key (kbd "C-c C-s") 'shell)
 ;;(global-set-key (kbd "C-c C-s") 'ansi-term)
+
+;; git
+(global-set-key (kbd "C-x g") 'magit-status)
