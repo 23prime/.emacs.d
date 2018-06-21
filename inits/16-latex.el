@@ -5,16 +5,18 @@
 (defun texrm ()
   (interactive)
   (message "TeXrm -- Done!")
-  (shell-command-to-string "texrm -y"))
+  (shell-command-to-string "texrm -y")
+  )
+
 (add-hook 'yatex-mode-hook
           '(lambda ()
              (define-key YaTeX-mode-map (kbd "C-c d") 'texrm)))
 
 ;; YaTeX + RefTeX
 (setq auto-mode-alist
-      (cons (cons "\\.tex$" 'yatex-mode) auto-mode-alist))
+      (cons (cons "\\.tex\\'" 'yatex-mode) auto-mode-alist))
 (setq auto-mode-alist
-      (cons (cons "\\.sty$" 'yatex-mode) auto-mode-alist))
+      (cons (cons "\\.sty\\'" 'yatex-mode) auto-mode-alist))
 (autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
 (setq YaTeX-open-lines 0)
 (setq YaTeX-kanji-code nil)
