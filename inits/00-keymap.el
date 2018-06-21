@@ -49,7 +49,7 @@
 (global-set-key (kbd "C-c C-q") 'quickrun)
 (global-set-key (kbd "C-c q") 'quickrun)
 ;; shell
-(global-set-key (kbd "C-c C-s") 'shell)
+;;(global-set-key (kbd "C-c C-s") 'shell)
 ;;(global-set-key (kbd "C-c C-s") 'ansi-term)
 
 ;; git

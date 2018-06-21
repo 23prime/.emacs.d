@@ -1,25 +1,30 @@
 ;;;;;;;;
 ;; JS ;;
 ;;;;;;;;
+
 (autoload 'js2-mode "js2-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-(add-hook 'js2-mode-hook '(lambda () (setq tab-width 2)))
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(add-hook 'js2-mode-hook '(lambda () 
+                            (setq tab-width 2
+                                  js2-basic-offset 2
+                                  )))
 
 (require 'nodejs-repl)
 
 (defun nodejs-repl-load-current-buffer ()
   (interactive)
   (nodejs-repl-load-file (buffer-file-name ()))
-)
+  (nodejs-repl-switch-to-repl)
+  )
 
 (add-hook 'js2-mode-hook
           (lambda ()
             (define-key js2-mode-map (kbd "C-x C-e") 'nodejs-repl-send-last-expression)
             (define-key js2-mode-map (kbd "C-c C-j") 'nodejs-repl-send-line)
             (define-key js2-mode-map (kbd "C-c C-r") 'nodejs-repl-send-region)
-            (define-key js2-mode-map (kbd "C-c C-l") 'nodejs-repl-load-file)
-            (define-key js2-mode-map (kbd "C-c C-p") 'nodejs-repl-load-current-buffer)
-            (define-key js2-mode-map (kbd "C-c C-z") 'nodejs-repl-switch-to-repl)))
+            (define-key js2-mode-map (kbd "C-c C-f") 'nodejs-repl-load-file)
+            (define-key js2-mode-map (kbd "C-c C-l") 'nodejs-repl-load-current-buffer)
+            (define-key js2-mode-map (kbd "C-c C-s") 'nodejs-repl-switch-to-repl)))
 
 
 ;;;;;;;;;

@@ -1,7 +1,6 @@
 ;;;;;;;;;;;;;
 ;; Haskell ;;
 ;;;;;;;;;;;;;
-(package-install 'intero)
 (add-hook 'haskell-mode-hook 'intero-mode)
 
 (require 'intero)
