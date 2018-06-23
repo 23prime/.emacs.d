@@ -5,3 +5,5 @@ elpa/
 eshell/
 vendor/
 elisp/PG
+*.elc
+inits/99-secret.el
