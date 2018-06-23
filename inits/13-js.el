@@ -24,7 +24,8 @@
             (define-key js2-mode-map (kbd "C-c C-r") 'nodejs-repl-send-region)
             (define-key js2-mode-map (kbd "C-c C-f") 'nodejs-repl-load-file)
             (define-key js2-mode-map (kbd "C-c C-l") 'nodejs-repl-load-current-buffer)
-            (define-key js2-mode-map (kbd "C-c C-s") 'nodejs-repl-switch-to-repl)))
+            (define-key js2-mode-map (kbd "C-c C-s") 'nodejs-repl-switch-to-repl)
+            ))
 
 
 ;;;;;;;;;

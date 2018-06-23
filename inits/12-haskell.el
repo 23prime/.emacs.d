@@ -21,6 +21,7 @@
 
 (add-hook 'haskell-mode-hook
           '(lambda ()
-             (define-key intero-mode-map (kbd "C-c C-p") 'intero-repl-and-flycheck)))
+             (define-key intero-mode-map (kbd "C-c C-p") 'intero-repl-and-flycheck)
+             ))
 
 (custom-set-variables '(haskell-stylish-on-save t))

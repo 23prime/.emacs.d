@@ -20,15 +20,18 @@
 ;; cursor
 (global-set-key (kbd "C-h") 'backward-char)
 (global-set-key (kbd "C-l") 'forward-char)
-
-(global-set-key (kbd "C-j") 'next-line)
 (global-set-key (kbd "C-k") 'previous-line)
+(global-set-key (kbd "C-j") 'next-line)
 (global-set-key (kbd "M-h") 'backward-word)
 (global-set-key (kbd "M-l") 'forward-word)
+(global-set-key (kbd "C-p") 'backward-paragraph)
+(global-set-key (kbd "C-n") 'forward-paragraph)
+;;(global-set-key (kbd "C-p") '(lambda () (interactive) (previous-line 5)))
+;;(global-set-key (kbd "C-n") '(lambda () (interactive) (next-line 5)))
 
 ;; scroll
-(global-set-key (kbd "C-p") 'scroll-down-command)
-(global-set-key (kbd "C-n") 'scroll-up-command)
+(global-set-key (kbd "M-p") 'scroll-down-command)
+(global-set-key (kbd "M-n") 'scroll-up-command)
 (global-set-key (kbd "C-f") 'recenter-top-bottom)
 
 ;; buffer
