@@ -30,3 +30,6 @@
 
 (setq python-shell-interpreter "python3"
       python-shell-interpreter-args "-i")
+
+(add-hook 'python-mode-hook '(lambda () 
+     (define-key python-mode-map "RET" 'newline-and-indent)))
