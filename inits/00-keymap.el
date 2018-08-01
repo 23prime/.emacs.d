@@ -1,19 +1,20 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; global key binding ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;
+;; kill binding
+(global-set-key (kbd "C-SPC")   'nil) ;; kill for select input method
+
 ;; typing
 (global-set-key (kbd "C-z")     'undo)
 (global-set-key (kbd "C-;")     'undo)
 (global-set-key (kbd "C-v")     'yank)
 (global-set-key (kbd "C-y")     'kill-line)
-(global-set-key (kbd "C-b")     'delete-backward-char)
-(global-set-key (kbd "C-SPC")   'nil) ;; kill to select input method
-(global-set-key (kbd "C-q")     'query-replace)
-(global-set-key (kbd "C-r")     'replace-string)
+(global-set-key (kbd "C-u")     'kill-whole-line)
 (global-set-key (kbd "RET")     'newline)
 (global-set-key (kbd "C-o")     'newline)
-(global-set-key (kbd "C-u")     'kill-whole-line)
-
+(global-set-key (kbd "C-b")     'delete-backward-char)
+(global-set-key (kbd "C-q")     'query-replace)
+(global-set-key (kbd "C-r")     'replace-string)
 (global-set-key (kbd "C-c C-m") 'set-mark-command)
 (global-set-key (kbd "C-c C-j") 'set-mark-command)
 
