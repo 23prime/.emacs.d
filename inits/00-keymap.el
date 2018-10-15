@@ -29,12 +29,17 @@
 (global-set-key (kbd "C-n") 'forward-paragraph)
 ;;(global-set-key (kbd "C-p") '(lambda () (interactive) (previous-line 5)))
 ;;(global-set-key (kbd "C-n") '(lambda () (interactive) (next-line 5)))
+
 (defun beginning-of-line-or-indentation ()
   (interactive)
   (if (and (smie-rule-bolp) (not (bolp)))
       (beginning-of-line)
     (back-to-indentation)))
-(global-set-key (kbd "C-a") 'beginning-of-line-or-indentation)
+
+(if (< emacs-major-version 27)
+    (global-set-key (kbd "C-a") 'beginning-of-line)
+  (global-set-key (kbd "C-a") 'beginning-of-line-or-indentation)
+)
 
 ;; scroll
 (global-set-key (kbd "M-p") 'scroll-down-command)
