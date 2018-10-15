@@ -22,7 +22,7 @@
  '(custom-enabled-themes '(tsdh-dark))
  '(haskell-stylish-on-save t)
  '(package-selected-packages
-   '(flymake-easy flymake-cursor flycheck-yamllint yaml-mode magit markdown-mode markdown-mode+ yatex web-mode ruby-electric racer quickrun python-mode py-autopep8 nodejs-repl js2-mode jedi intero inf-ruby hlint-refactor flymake-python-pyflakes flymake-jslint flycheck-rust exec-path-from-shell cargo auto-highlight-symbol)))
+   '(smartparens flymake-easy flymake-cursor flycheck-yamllint yaml-mode magit markdown-mode markdown-mode+ yatex web-mode ruby-electric racer quickrun python-mode py-autopep8 nodejs-repl js2-mode jedi intero inf-ruby hlint-refactor flymake-python-pyflakes flymake-jslint flycheck-rust exec-path-from-shell cargo auto-highlight-symbol)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -38,7 +38,7 @@
 (when window-system
   (set-face-attribute 'default nil
               :family "Migu 1M"
-              :height 102
+              :height 92
               ))
 
 
@@ -74,9 +74,6 @@
 
 ;; scroll line
 (setq scroll-conservatively 1)
-
-;; parenthesis
-(show-paren-mode 1)
 
 ;; clear && active
 (add-to-list 'default-frame-alist '(alpha . (1.0 1.0)))
@@ -140,3 +137,13 @@
 
 ;; copy && paste
 (setq x-select-enable-clipboard t)
+
+
+;; parenthesis
+(show-paren-mode 1)
+
+(when (>= emacs-major-version 27)
+  (require 'smartparens-config)
+  (smartparens-global-mode t)
+  ;; (show-smartparens-global-mode t)
+)
