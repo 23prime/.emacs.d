@@ -26,3 +26,8 @@
              ))
 
 (custom-set-variables '(haskell-stylish-on-save t))
+
+
+(require 'smartparens)
+
+;;(sp-local-pair 'haskell-mode "{-# L" "ANGUAGE  #-}")
