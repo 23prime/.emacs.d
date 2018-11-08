@@ -15,31 +15,29 @@
 
 ;; theme setting
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-enabled-themes '(tsdh-dark))
+ '(custom-enabled-themes '(manoj-dark))
  '(haskell-stylish-on-save t)
  '(package-selected-packages
    '(smartparens flymake-easy flymake-cursor flycheck-yamllint yaml-mode magit markdown-mode markdown-mode+ yatex web-mode ruby-electric racer quickrun python-mode py-autopep8 nodejs-repl js2-mode jedi intero inf-ruby hlint-refactor flymake-python-pyflakes flymake-jslint flycheck-rust exec-path-from-shell cargo auto-highlight-symbol)))
 (custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+)
 
 ;; kill start 
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
 
 ;; font
-(when window-system
-  (set-face-attribute 'default nil
-              :family "Migu 1M"
-              :height 92
-              ))
+;;(when window-system)
+(set-face-attribute 'default nil
+                    ;:family "Ricty Diminished"
+                    :family "Takenocoding"
+                    :height 92
+                    )
+(set-fontset-font t 'japanese-jisx0208
+                  (font-spec
+                   :family "Ricty Diminished"
+                   ;;:family "Takenocoding"
+                  ))
 
 
 ;;;;;;;;;
