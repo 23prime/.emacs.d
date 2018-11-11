@@ -14,13 +14,26 @@
 (global-hl-line-mode t)
 
 ;; theme setting
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+(setq custom-theme-directory "~/.emacs.d/themes")
+
 (custom-set-variables
- '(custom-enabled-themes '(manoj-dark))
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-enabled-themes '(tsdh-dark2))
+ '(custom-safe-themes
+   '("1ef8434cebfdf3505930f3a64a99f980704fdaa37741f47e0d3dab7cb57b283d" "cecd25a1b18009fd052cf7c4dfb1ace13d21d69da5ed0fbfda65df2e083c76e5" default))
  '(haskell-stylish-on-save t)
  '(package-selected-packages
-   '(smartparens flymake-easy flymake-cursor flycheck-yamllint yaml-mode magit markdown-mode markdown-mode+ yatex web-mode ruby-electric racer quickrun python-mode py-autopep8 nodejs-repl js2-mode jedi intero inf-ruby hlint-refactor flymake-python-pyflakes flymake-jslint flycheck-rust exec-path-from-shell cargo auto-highlight-symbol)))
+   '(color-theme-modern smartparens flymake-easy flymake-cursor flycheck-yamllint yaml-mode magit markdown-mode markdown-mode+ yatex web-mode ruby-electric racer quickrun python-mode py-autopep8 nodejs-repl js2-mode jedi intero inf-ruby hlint-refactor flymake-python-pyflakes flymake-jslint flycheck-rust exec-path-from-shell cargo auto-highlight-symbol)))
 (custom-set-faces
-)
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
 
 ;; kill start 
 (setq inhibit-startup-message t)
@@ -29,9 +42,9 @@
 ;; font
 ;;(when window-system)
 (set-face-attribute 'default nil
-                    ;:family "Ricty Diminished"
-                    :family "Takenocoding"
-                    :height 92
+                    :family "Ricty Diminished"
+                    ;;:family "Takenocoding"
+                    :height 96
                     )
 (set-fontset-font t 'japanese-jisx0208
                   (font-spec
@@ -44,6 +57,7 @@
 ;; env ;;
 ;;;;;;;;;
 (setq load-path (cons "~/.emacs.d/elisp" load-path))
+(setq load-path (cons "~/.emacs.d/themes" load-path))
 
 (let ((default-directory (expand-file-name "~/.emacs.d/site-lisp")))
   (add-to-list 'load-path default-directory)
@@ -78,6 +92,7 @@
 
 ;; return-tab kill
 (setq electric-indent-mode nil)
+
 
 ;; split into 4 windows
 (defun window-spliter ()
