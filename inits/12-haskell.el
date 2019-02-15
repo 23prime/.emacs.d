@@ -23,6 +23,9 @@
           '(lambda ()
              (define-key intero-mode-map (kbd "C-c C-p") 'intero-repl-and-flycheck)
              (define-key intero-mode-map (kbd "C-c C-h") 'haskell-hoogle)
+             (define-key intero-mode-map (kbd "C-c C-r") 'intero-restart)
+             (define-key intero-mode-map (kbd "C-c C-a") 'hlint-refactor-refactor-at-point)
+             (define-key intero-mode-map (kbd "C-c C-b") 'hlint-refactor-refactor-buffer)
              ))
 
 (custom-set-variables '(haskell-stylish-on-save t))
