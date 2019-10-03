@@ -2,6 +2,13 @@
 ;; design ;;
 ;;;;;;;;;;;;
 ;; kill menu bar
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (menu-bar-mode -1)
 ;; kill menu bar
 (tool-bar-mode -1)
@@ -22,12 +29,14 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes '(tsdh-dark2))
+ '(custom-enabled-themes (quote (tsdh-dark2)))
  '(custom-safe-themes
-   '("1ef8434cebfdf3505930f3a64a99f980704fdaa37741f47e0d3dab7cb57b283d" "cecd25a1b18009fd052cf7c4dfb1ace13d21d69da5ed0fbfda65df2e083c76e5" default))
+   (quote
+    ("1ef8434cebfdf3505930f3a64a99f980704fdaa37741f47e0d3dab7cb57b283d" "cecd25a1b18009fd052cf7c4dfb1ace13d21d69da5ed0fbfda65df2e083c76e5" default)))
  '(haskell-stylish-on-save t)
  '(package-selected-packages
-   '(multiple-cursors intero color-theme-modern smartparens flymake-easy flymake-cursor flycheck-yamllint yaml-mode magit markdown-mode markdown-mode+ yatex web-mode ruby-electric racer quickrun python-mode py-autopep8 nodejs-repl js2-mode jedi inf-ruby hlint-refactor flymake-python-pyflakes flymake-jslint flycheck-rust exec-path-from-shell cargo auto-highlight-symbol)))
+   (quote
+    (multiple-cursors intero color-theme-modern smartparens flymake-easy flymake-cursor flycheck-yamllint yaml-mode magit markdown-mode markdown-mode+ yatex web-mode ruby-electric racer quickrun python-mode py-autopep8 nodejs-repl js2-mode jedi inf-ruby hlint-refactor flymake-python-pyflakes flymake-jslint flycheck-rust exec-path-from-shell cargo auto-highlight-symbol))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -75,6 +84,7 @@
 (setq make-backup-files nil)
 
 ;; kill auto seve
+(setq auto-save-default nil)
 (setq delete-auto-save-files t)
 
 ;; tab setting

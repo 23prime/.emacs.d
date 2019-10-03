@@ -41,11 +41,11 @@
   (global-set-key (kbd "C-a") 'beginning-of-line-or-indentation)
 )
 
-(require 'multiple-cursors)
-(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-(global-set-key (kbd "C-M-j")       'mc/mark-next-like-this)
-(global-set-key (kbd "C-M-k")       'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<")     'mc/mark-all-like-this)
+;;(require 'multiple-cursors)
+;;(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+;;(global-set-key (kbd "C-M-j")       'mc/mark-next-like-this)
+;;(global-set-key (kbd "C-M-k")       'mc/mark-previous-like-this)
+;;(global-set-key (kbd "C-c C-<")     'mc/mark-all-like-this)
 
 ;; scroll
 (global-set-key (kbd "M-p") 'scroll-down-command)
