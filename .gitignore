@@ -1,9 +1,1 @@
-session*
-tramp
 auto-save-list/
-elpa/
-eshell/
-vendor/
-elisp/PG
-*.elc
-inits/99-secret.el
