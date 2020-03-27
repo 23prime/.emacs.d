@@ -51,14 +51,16 @@
 ;; font
 ;;(when window-system)
 (set-face-attribute 'default nil
-                    :family "Ricty Diminished"
-                    ;;:family "Takenocoding"
+                    ;; :family "Ricty Diminished"
+                    ;; :family "Takenocoding"
+                    :family "noco"
                     :height 96
                     )
 (set-fontset-font t 'japanese-jisx0208
                   (font-spec
-                   :family "Ricty Diminished"
-                   ;;:family "Takenocoding"
+                   ;; :family "Ricty Diminished"
+                   ;; :family "Takenocoding"
+                   :family "noco"
                   ))
 
 
