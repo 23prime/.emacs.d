@@ -15,7 +15,6 @@
 
 ;; column && line num
 (column-number-mode t)
-(global-linum-mode t)
 
 ;; highlight in cursor line
 (global-hl-line-mode t)
@@ -44,7 +43,7 @@
  ;; If there is more than one, they won't work right.
  )
 
-;; kill start 
+;; kill start
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
 
@@ -163,9 +162,3 @@
 
 ;; parenthesis
 (show-paren-mode 1)
-
-(when (>= emacs-major-version 27)
-  (require 'smartparens-config)
-  (smartparens-global-mode t)
-  ;; (show-smartparens-global-mode t)
-)

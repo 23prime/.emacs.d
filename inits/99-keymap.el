@@ -36,10 +36,11 @@
       (beginning-of-line)
     (back-to-indentation)))
 
-(if (< emacs-major-version 27)
+;; TODO: Avoid "Symbol's definition is void: smie-rule-bolp" when use beginning-of-line-or-indentation
+;;(if (< emacs-major-version 27)
     (global-set-key (kbd "C-a") 'beginning-of-line)
-  (global-set-key (kbd "C-a") 'beginning-of-line-or-indentation)
-)
+;;  (global-set-key (kbd "C-a") 'beginning-of-line-or-indentation)
+;;)
 
 ;;(require 'multiple-cursors)
 ;;(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
